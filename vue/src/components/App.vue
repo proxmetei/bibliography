@@ -2,21 +2,67 @@
   <div>
     <RouterView />
     <ModalContainer />
+    <div class="main-block">
+      <ListContainer :books="books" :typeOfList="typeOfList" />
+      <div>
+        <label for="listType">
+          Type of List is ol
+        </label>
+        <input
+         @click="(event) => changeTypeOfList(event)" 
+         id="listType" 
+         type="checkbox" 
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import ModalContainer from "@/components/parts/ModalContainer";
+import ListContainer from "@/components/List.vue";
 
 export default {
   components: {
-    ModalContainer
+    ModalContainer,
+    ListContainer
+  },
+  data() {
+    return {
+      typeOfList: 'ul',
+      books: [
+        { id: 1, title: "A", author: "a" },
+        { id: 2, title: "B", author: "b" },
+        { id: 3, title: "C", author: "c" },
+        { id: 4, title: "D", author: "d" }
+      ]
+    }
+  },
+  methods: {
+    changeTypeOfList(event) {
+      if (event.target.checked)
+        this.typeOfList = 'ol'
+      else
+        this.typeOfList = 'ul';
+    }
   }
 }
 </script>
 
 <style lang="less">
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap');
+@import url("../less/const.less");
+
+.main-block {
+  width: 400px;
+  height: 400px;
+  background-color: @cBaseOne;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 
 body {
   margin: 0;
@@ -39,7 +85,11 @@ section {
   }
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   font-family: @ffOne;
   color: @cBaseThree;
   margin: 0;
@@ -67,9 +117,7 @@ h2 {
       background-color: @cBaseTwo;
     }
 
-    &-v {
-
-    }
+    &-v {}
   }
 
   &-loading {
