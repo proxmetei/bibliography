@@ -112,7 +112,9 @@ h2 {
       background-color: @cBaseTwo;
     }
 
-    &-v {}
+    &-v {
+
+    }
   }
 
   &-loading {
@@ -130,4 +132,5 @@ h2 {
       cursor: wait;
     }
   }
-}</style>
+}
+</style>
