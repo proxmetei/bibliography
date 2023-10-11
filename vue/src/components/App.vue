@@ -1,20 +1,18 @@
 <template>
   <div>
-    <RouterView />
-    <ModalContainer />
     <div class="main-block">
-      <ListContainer :books="books" :typeOfList="typeOfList" />
-      <div>
-        <label for="listType">
-          Type of List is ol
-        </label>
-        <input
-         @click="(event) => changeTypeOfList(event)" 
-         id="listType" 
-         type="checkbox" 
-        />
+      <div class="main-block-content">
+        <ListContainer :books="books" :type-list="typeOfList" />
+        <div>
+          <label for="listType">
+            Type of List is ol
+          </label>
+          <input @click="(event) => changeTypeOfList(event)" id="listType" type="checkbox" />
+        </div>
       </div>
     </div>
+    <RouterView />
+    <ModalContainer />
   </div>
 </template>
 
@@ -54,13 +52,14 @@ export default {
 @import url("../less/const.less");
 
 .main-block {
-  width: 400px;
-  height: 400px;
-  background-color: @cBaseOne;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+
+  &-content {
+    width: 400px;
+    height: 400px;
+    background-color: @cBaseOne;
+  }
 }
 
 
@@ -135,5 +134,4 @@ h2 {
       cursor: wait;
     }
   }
-}
-</style>
+}</style>

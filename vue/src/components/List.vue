@@ -1,21 +1,13 @@
 <template>
     <div>
-    <ul v-if="typeOfList=='ul'">
-        <li
-         v-for="book in books"
-         :key="book.id"
-        >
-        {{book.title}}, {{book.author}}
-        </li>
-    </ul>
-    <ol v-if="typeOfList=='ol'">
-        <li
-         v-for="book in books"
-         :key="book.id"
-        >
-        {{book.title}}, {{book.author}}
-        </li>
-    </ol>
+        <component :is="typeList">
+            <li
+                v-for="book in books"
+                :key="book.id"
+            >
+                {{ book.title }}, {{ book.author }}
+            </li>
+        </component>
     </div>
 </template>
 
@@ -26,14 +18,13 @@ export default {
     props: {
         books: {
             type: Array,
-            default: () => []
+            default: () => ([])
         },
-        typeOfList: {
+        typeList: {
             type: String,
             default: 'ul'
         }
     }
 }
 </script>
-<style>
-</style>
+<style></style>
