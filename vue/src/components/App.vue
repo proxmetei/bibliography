@@ -4,10 +4,15 @@
       <div class="main-block-content">
         <ListContainer :books="books" :type-list="typeOfList" />
         <div>
-          <label for="listType">
-            Type of List is ol
-          </label>
-          <input @click="(event) => changeTypeOfList(event)" id="listType" type="checkbox" />
+          <el-select v-model="typeOfList" placeholder="Выберите тип списка">
+            <el-option
+              v-for="item in options" 
+              :key="item.value" 
+              :label="item.label" 
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
         </div>
       </div>
     </div>
@@ -30,7 +35,17 @@ export default {
   },
   data() {
     return {
-      typeOfList: 'ul',
+      typeOfList: 'div',
+      options: [{
+        value: "ul",
+        label: "Простой список"
+      }, {
+        value: "ol",
+        label: "Нумерованный список"
+      }, {
+        value: "div",
+        label: "По умолчанию"
+      }],
       books: [
         { id: 1, title: "A", author: "a" },
         { id: 2, title: "B", author: "b" },
@@ -38,29 +53,18 @@ export default {
         { id: 4, title: "D", author: "d" }
       ]
     }
-  },
-  methods: {
-    changeTypeOfList(event) {
-      if (event.target.checked)
-        this.typeOfList = 'ol'
-      else
-        this.typeOfList = 'ul';
-    }
   }
 }
 </script>
 
 <style lang="less">
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap');
-@import url("../less/const.less");
 
 .main-block {
   display: flex;
   justify-content: center;
 
   &-content {
-    width: 400px;
-    height: 400px;
     background-color: @cBaseOne;
   }
 }
