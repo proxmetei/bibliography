@@ -13,16 +13,19 @@
     </div>
     <RouterView />
     <ModalContainer />
+    <BookForm />
   </div>
 </template>
 
 <script>
 import ModalContainer from "@/components/parts/ModalContainer";
 import ListContainer from "@/components/List.vue";
+import BookForm from "@/components/BookForm.vue";
 
 export default {
   components: {
     ModalContainer,
+    BookForm,
     ListContainer
   },
   data() {
