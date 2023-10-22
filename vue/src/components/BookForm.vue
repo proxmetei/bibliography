@@ -1,54 +1,58 @@
 <template>
   <div class="book-form">
     <div class="book-form__input">
+      <el-select v-model="form.type" placeholder="Выберите тип источника">
+        <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value">
+        </el-option>
+      </el-select>
+    </div>
+    <div v-if="form.type != 'web' && form.type != ''" class="book-form__input">
       <el-input v-model="form.author" placeholder="Автор" />
     </div>
-    <div class="book-form__input">
-      <el-input v-model="form.initials" placeholder="Инициалы автора" />
-    </div>
-    <div class="book-form__input">
+    <div v-if="form.type != ''" class="book-form__input">
       <el-input v-model="form.title" placeholder="Заглавие" />
     </div>
-    <div class="book-form__input">
+    <div v-if="form.type == 'book' || form.type == 'abstract' || form.type == 'articleBook'" class="book-form__input">
       <el-input v-model="form.place" placeholder="Место издания" />
     </div>
-    <div class="book-form__input">
+    <div v-if="form.type == 'book' || form.type == 'articleBook'" class="book-form__input">
       <el-input v-model="form.publisher" placeholder="Издательство" />
     </div>
-    <div class="book-form__input">
+    <div v-if="form.type != 'web' && form.type != ''" class="book-form__input">
       <el-input v-model="form.year" placeholder="Год издания" />
     </div>
-    <div class="book-form__input">
-      <el-input v-model="form.pages" placeholder="Количество страниц" />
+    <div v-if="form.type == 'articleBook' || form.type == 'articleMagazine'" class="book-form__input">
+      <el-input v-model="form.pages" placeholder="Страницы" />
     </div>
-    <div class="book-form__input">
-      <el-input v-model="form.additionals" placeholder="Дополнительные сведения" />
+    <div v-if="form.type == 'book' || form.type == 'abstract'" class="book-form__input">
+      <el-input v-model="form.pagesNum" placeholder="Количество страниц" />
     </div>
-    <div class="book-form__input">
+    <div v-if="form.type == 'book'" class="book-form__input">
       <el-input v-model="form.isbn" placeholder="ISBN" />
     </div>
-    <div class="book-form__input">
-      <el-input v-model="form.circulation" placeholder="Тираж" />
+    <div v-if="form.type == 'book'" class="book-form__input">
+      <el-input v-model="form.editionNum" placeholder="Какое по счету издание" />
     </div>
-    <div class="book-form__input">
-      <el-input v-model="form.udk" placeholder="УДК" />
+    <div v-if="form.type == 'book'" class="book-form__input">
+      <el-input v-model="form.typeBook" placeholder="Тип книги" />
     </div>
-    <div class="book-form__input">
-      <el-input v-model="form.bbk" placeholder="ББК" />
+    <div v-if="form.type == 'abstract'" class="book-form__input">
+      <el-input v-model="form.authorTitle" placeholder="Научное звание автора" />
     </div>
-    <div class="book-form__input">
-      <el-input v-model="form.annotation" placeholder="Аннотация" />
+    <div v-if="form.type == 'abstract'" class="book-form__input">
+      <el-input v-model="form.supervisor" placeholder="Научный руковводитель" />
     </div>
-    <div class="book-form__input">
-      <el-select v-model="form.type" placeholder="Выберите тип источника">
-            <el-option
-              v-for="item in typeOptions" 
-              :key="item.value" 
-              :label="item.label" 
-              :value="item.value"
-            >
-            </el-option>
-      </el-select>
+    <div v-if="form.type == 'abstract'" class="book-form__input">
+      <el-input v-model="form.university" placeholder="Университет" />
+    </div>
+    <div v-if="form.type == 'articleMagazine'" class="book-form__input">
+      <el-input v-model="form.magazineNum" placeholder="Номер выпуска журнала" />
+    </div>
+    <div v-if="form.type == 'web' || form.type == 'articleWeb'" class="book-form__input">
+      <el-input v-model="form.url" placeholder="URL сайта" />
+    </div>
+    <div v-if="form.type == 'web' || form.type == 'articleWeb'" class="book-form__input">
+      <el-input v-model="form.dateApp" placeholder="Дата обращения" />
     </div>
     <el-button type="primary" @click="() => save()">Сохранить</el-button>
   </div>
@@ -61,29 +65,41 @@ export default {
     return {
       form: {
         author: '',
-        initials: '',
         title: '',
         place: '',
         publisher: '',
         year: '',
         pages: '',
-        additionals: '',
+        pegesNum: '',
         isbn: '',
-        circulation: '',
-        udk: '',
-        bbk: '',
-        annotation: '',
+        editionNum: '',
+        typeBook: '',
+        authorTitle: '',
+        supervisor: '',
+        university: '',
+        magazineNum: '',
+        url: '',
+        dateApp: '',
         type: ''
       },
       typeOptions: [{
         value: "book",
-        label: "Книга"
+        label: "Книга с одним автором"
       }, {
-        value: "reference",
-        label: "Ссылка"
+        value: "abstract",
+        label: "Диссертации и авторефераты"
       }, {
-        value: "other",
-        label: "Прочее"
+        value: "articleBook",
+        label: "Статья из книги"
+      }, {
+        value: "articleMagazine",
+        label: "Сататья из журнала"
+      }, {
+        value: "web",
+        label: "Cайты в сети"
+      }, {
+        value: "articleWeb",
+        label: "Статья с сайта"
       }],
     }
   },
