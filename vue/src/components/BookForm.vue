@@ -2,18 +2,25 @@
   <div class="book-form">
     <div class="book-form__input">
       <el-select v-model="form.type" placeholder="Выберите тип источника">
-        <el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value">
-        </el-option>
+        <el-option
+          v-for="item in typeOptions" 
+          :key="item.value" 
+          :label="item.label" 
+          :value="item.value" 
+        />
       </el-select>
     </div>
     <div v-if="form.type != 'web' && form.type != ''" class="book-form__input">
       <el-input v-model="form.author" placeholder="Автор" />
     </div>
+    <div v-if="form.type != 'web' && form.type != ''" class="book-form__input">
+      <el-input v-model="form.initials" placeholder="Инициалы автора" />
+    </div>
     <div v-if="form.type != ''" class="book-form__input">
       <el-input v-model="form.title" placeholder="Заглавие" />
     </div>
     <div v-if="form.type == 'book' || form.type == 'abstract' || form.type == 'articleBook'" class="book-form__input">
-      <el-input v-model="form.place" placeholder="Место издания" />
+      <el-input v-model="form.city" placeholder="Город" />
     </div>
     <div v-if="form.type == 'book' || form.type == 'articleBook'" class="book-form__input">
       <el-input v-model="form.publisher" placeholder="Издательство" />
@@ -31,7 +38,7 @@
       <el-input v-model="form.isbn" placeholder="ISBN" />
     </div>
     <div v-if="form.type == 'book'" class="book-form__input">
-      <el-input v-model="form.editionNum" placeholder="Какое по счету издание" />
+      <el-input v-model="form.editionNum" placeholder="Номер издания" />
     </div>
     <div v-if="form.type == 'book'" class="book-form__input">
       <el-input v-model="form.typeBook" placeholder="Тип книги" />
@@ -40,7 +47,7 @@
       <el-input v-model="form.authorTitle" placeholder="Научное звание автора" />
     </div>
     <div v-if="form.type == 'abstract'" class="book-form__input">
-      <el-input v-model="form.supervisor" placeholder="Научный руковводитель" />
+      <el-input v-model="form.supervisor" placeholder="Научный руководитель" />
     </div>
     <div v-if="form.type == 'abstract'" class="book-form__input">
       <el-input v-model="form.university" placeholder="Университет" />
@@ -52,7 +59,7 @@
       <el-input v-model="form.url" placeholder="URL сайта" />
     </div>
     <div v-if="form.type == 'web' || form.type == 'articleWeb'" class="book-form__input">
-      <el-input v-model="form.dateApp" placeholder="Дата обращения" />
+      <el-input v-model="form.viewDate" placeholder="Дата обращения" />
     </div>
     <el-button type="primary" @click="() => save()">Сохранить</el-button>
   </div>
@@ -65,8 +72,9 @@ export default {
     return {
       form: {
         author: '',
+        initials: '',
         title: '',
-        place: '',
+        city: '',
         publisher: '',
         year: '',
         pages: '',
@@ -79,10 +87,14 @@ export default {
         university: '',
         magazineNum: '',
         url: '',
-        dateApp: '',
+        viewDate: '',
         type: ''
-      },
-      typeOptions: [{
+      }
+    }
+  },
+  computed: {
+    typeOptions() {
+      return [{
         value: "book",
         label: "Книга с одним автором"
       }, {
@@ -100,7 +112,7 @@ export default {
       }, {
         value: "articleWeb",
         label: "Статья с сайта"
-      }],
+      }]
     }
   },
   methods: {
