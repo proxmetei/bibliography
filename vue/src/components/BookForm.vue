@@ -68,7 +68,7 @@
 <script>
 export default {
   name: 'BookForm',
-  data() {
+  data () {
     return {
       form: {
         author: '',
@@ -93,7 +93,7 @@ export default {
     }
   },
   computed: {
-    typeOptions() {
+    typeOptions () {
       return [{
         value: "book",
         label: "Книга с одним автором"
@@ -116,7 +116,7 @@ export default {
     }
   },
   methods: {
-    save() {
+    save () {
       console.log(this.form)
     }
   }
