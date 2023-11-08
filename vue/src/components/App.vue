@@ -1,6 +1,15 @@
 <template>
   <div>
     <div class="main-block">
+      <input :value="inputFile" @change="(e) => setFile(e)" type="file" id="import" accept=".json" style="display: none;">
+      <div class="main-block-buttons">
+        <el-button type="primary" @click="() => openFile()">
+          Импорт
+        </el-button>
+        <a :href = "downloadRef" class="el-button el-button--primary" download="file.json" type="primary">
+         <span>Экспорт</span>
+        </a>
+      </div>
       <div class="main-block-content">
         <ListContainer :books="books" :type-list="typeOfList" />
         <div>
@@ -26,6 +35,7 @@
 import ModalContainer from "@/components/parts/ModalContainer";
 import ListContainer from "@/components/List.vue";
 import BookForm from "@/components/BookForm.vue";
+import {mapGetters, mapMutations} from "vuex";
 
 export default {
   components: {
@@ -33,9 +43,10 @@ export default {
     BookForm,
     ListContainer
   },
-  data() {
+  data () {
     return {
       typeOfList: 'div',
+      inputFile: null,
       options: [{
         value: "ul",
         label: "Простой список"
@@ -45,13 +56,33 @@ export default {
       }, {
         value: "div",
         label: "По умолчанию"
-      }],
-      books: [
-        { id: 1, title: "A", author: "a" },
-        { id: 2, title: "B", author: "b" },
-        { id: 3, title: "C", author: "c" },
-        { id: 4, title: "D", author: "d" }
-      ]
+      }]
+    }
+  },
+  computed: {
+    ...mapGetters('books', [
+      'getBooks'
+    ]),
+    books () {
+      return this.getBooks
+    },
+    downloadRef () {
+      return "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(this.books));
+    } 
+  },
+  methods: {
+    ...mapMutations('books', [
+      'setBooks'
+    ]),
+    setFile (e) {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        this.setBooks(JSON.parse(e.target.result));
+      }
+      reader.readAsText(e.target.files[0]);
+    },
+    openFile () {
+      document.getElementById("import").click();
     }
   }
 }
@@ -67,6 +98,13 @@ export default {
   &-content {
     background-color: @cBaseOne;
   }
+}
+
+.main-block-buttons .el-button--primary {
+  font-size: 20px !important;
+  font-family: 'Times New Roman', Times, serif;
+  font-style: normal  !important;
+  font-weight: 500 !important;
 }
 
 body {

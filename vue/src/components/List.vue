@@ -6,7 +6,12 @@
         :key="book.id" 
         :style="cssProps"
       >
-        {{ book.title }}, {{ book.author }}
+        <span
+         v-for="bookProperty of book"
+         :key="bookProperty + book.id"
+        >
+          {{ bookProperty }}
+        </span>
       </li>
     </component>
   </div>
@@ -27,7 +32,7 @@ export default {
     }
   },
   computed: {
-    cssProps() {
+    cssProps () {
       return this.typeList == "div" ? {
         'display': 'block'
       } : {}

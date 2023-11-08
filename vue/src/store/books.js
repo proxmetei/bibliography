@@ -7,13 +7,15 @@ const syncStateBooks = (state) => {
 export default {
   namespaced: true,
   state: {
-    books: localStorage.getItem(booksLocalStorageKey)
+    books: JSON.parse(localStorage.getItem(booksLocalStorageKey)) ?? []
   },
   getters: {
     // Получить список книг
     getBooks: (state) => state.books,
     // Получение книги по индексу
-    getBook: (state) => (id) => state.books.find((book) => book.id == id)
+    getBook: (state) => (id) => state.books.find((book) => book.id == id),
+    // Получение максимального индекса
+    getMaxId: (state) => Math.max(0, ...state.books.map((book) => book.id))
   },
   mutations: {
     // Записать книги
@@ -43,7 +45,9 @@ export default {
   actions: {
     // Добавление книги
     addBook: (store, payload) => new Promise(() => {
-      store.commit('addBook', payload)
+      let book = {...payload};
+      book.id = store.getters.getMaxId + 1;
+      store.commit('addBook', book)
     }),
     // Удаление книги
     removeBook: (store, payload) => new Promise(() => {
