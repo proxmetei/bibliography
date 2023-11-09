@@ -13,9 +13,7 @@ export default {
     // Получить список книг
     getBooks: (state) => state.books,
     // Получение книги по индексу
-    getBook: (state) => (id) => state.books.find((book) => book.id == id),
-    // Получение максимального индекса
-    getMaxId: (state) => Math.max(0, ...state.books.map((book) => book.id))
+    getBook: (state) => (id) => state.books.find((book) => book.id == id)
   },
   mutations: {
     // Записать книги
@@ -25,6 +23,7 @@ export default {
     },
     // Добавление книги
     addBook: (state, payload) => {
+      payload.id = Date.now().toString()
       state.books.push(payload)
       syncStateBooks(state)
     },
@@ -45,9 +44,7 @@ export default {
   actions: {
     // Добавление книги
     addBook: (store, payload) => new Promise(() => {
-      let book = {...payload};
-      book.id = store.getters.getMaxId + 1;
-      store.commit('addBook', book)
+      store.commit('addBook', payload)
     }),
     // Удаление книги
     removeBook: (store, payload) => new Promise(() => {

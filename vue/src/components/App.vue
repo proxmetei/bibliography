@@ -1,12 +1,24 @@
 <template>
   <div>
     <div class="main-block">
-      <input :value="inputFile" @change="(e) => setFile(e)" type="file" id="import" accept=".json" style="display: none;">
       <div class="main-block-buttons">
-        <el-button type="primary" @click="() => openFile()">
-          Импорт
-        </el-button>
-        <a :href = "downloadRef" class="el-button el-button--primary" download="file.json" type="primary">
+        <el-upload
+          action="#"
+          :limit="1"
+          :show-file-list="false"
+          :auto-upload="false"
+          :on-change="(file) => setFile(file)"
+        >
+          <el-button type="primary">
+            Импорт
+          </el-button>
+        </el-upload>
+        <a 
+          :href = "downloadRef" 
+          class="el-button el-button--success" 
+          download="file.json" 
+          type="primary"
+        >
          <span>Экспорт</span>
         </a>
       </div>
@@ -74,15 +86,12 @@ export default {
     ...mapMutations('books', [
       'setBooks'
     ]),
-    setFile (e) {
-      let reader = new FileReader();
+    setFile (file) {
+      const reader = new FileReader();
       reader.onload = (e) => {
         this.setBooks(JSON.parse(e.target.result));
       }
-      reader.readAsText(e.target.files[0]);
-    },
-    openFile () {
-      document.getElementById("import").click();
+      reader.readAsText(file.raw);
     }
   }
 }
@@ -98,13 +107,15 @@ export default {
   &-content {
     background-color: @cBaseOne;
   }
-}
 
-.main-block-buttons .el-button--primary {
-  font-size: 20px !important;
-  font-family: 'Times New Roman', Times, serif;
-  font-style: normal  !important;
-  font-weight: 500 !important;
+  &-buttons {
+    display: flex;
+    height: fit-content;
+
+    & .el-button{
+      font-family: 'Times New Roman', Times, serif;
+    }
+  }
 }
 
 body {

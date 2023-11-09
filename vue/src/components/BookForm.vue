@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import {mapActions} from "vuex";
+import {mapMutations} from "vuex";
 export default {
   name: 'BookForm',
   data () {
@@ -117,11 +117,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions('books', [
+    ...mapMutations('books', [
       'addBook'
     ]),
     save () {
-      this.addBook(this.form);
+      this.addBook({...this.form});
     }
   }
 }

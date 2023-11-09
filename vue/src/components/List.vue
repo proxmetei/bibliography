@@ -6,12 +6,7 @@
         :key="book.id" 
         :style="cssProps"
       >
-        <span
-         v-for="bookProperty of book"
-         :key="bookProperty + book.id"
-        >
-          {{ bookProperty }}
-        </span>
+        {{ book.title }}, {{ book.author }}
       </li>
     </component>
   </div>
