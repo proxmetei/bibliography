@@ -67,6 +67,7 @@
 
 <script>
 import {mapMutations} from "vuex";
+
 export default {
   name: 'BookForm',
   data () {

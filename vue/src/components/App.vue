@@ -14,7 +14,7 @@
           </el-button>
         </el-upload>
         <a 
-          :href = "downloadRef" 
+          :href="downloadRef" 
           class="el-button el-button--success" 
           download="file.json" 
           type="primary"
@@ -58,7 +58,6 @@ export default {
   data () {
     return {
       typeOfList: 'div',
-      inputFile: null,
       options: [{
         value: "ul",
         label: "Простой список"
@@ -112,7 +111,7 @@ export default {
     display: flex;
     height: fit-content;
 
-    & .el-button{
+    & .el-button {
       font-family: 'Times New Roman', Times, serif;
     }
   }
