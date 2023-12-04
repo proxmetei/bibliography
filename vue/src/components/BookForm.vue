@@ -22,7 +22,7 @@
     <div v-if="form.type == 'book' || form.type == 'abstract' || form.type == 'articleBook'" class="book-form__input">
       <el-input v-model="form.city" placeholder="Город" />
     </div>
-    <div v-if="form.type == 'book' || form.type == 'articleBook'" class="book-form__input">
+    <div v-if="form.type == 'book'" class="book-form__input">
       <el-input v-model="form.publisher" placeholder="Издательство" />
     </div>
     <div v-if="form.type != 'web' && form.type != ''" class="book-form__input">
@@ -44,6 +44,12 @@
       <el-input v-model="form.typeBook" placeholder="Тип книги" />
     </div>
     <div v-if="form.type == 'abstract'" class="book-form__input">
+      <el-input v-model="form.fullInitials" placeholder="Полные инициалы" />
+    </div>
+    <div v-if="form.type == 'abstract'" class="book-form__input">
+      <el-input v-model="form.scientificSpecialty" placeholder="Научная специальность" />
+    </div>
+    <div v-if="form.type == 'abstract'" class="book-form__input">
       <el-input v-model="form.authorTitle" placeholder="Научное звание автора" />
     </div>
     <div v-if="form.type == 'abstract'" class="book-form__input">
@@ -57,6 +63,9 @@
     </div>
     <div v-if="form.type == 'web' || form.type == 'articleWeb'" class="book-form__input">
       <el-input v-model="form.url" placeholder="URL сайта" />
+    </div>
+    <div v-if="form.type == 'articleBook' || form.type == 'articleMagazine' || form.type == 'articleWeb'" class="book-form__input">
+      <el-input v-model="form.originName" placeholder="Название источника" />
     </div>
     <div v-if="form.type == 'web' || form.type == 'articleWeb'" class="book-form__input">
       <el-input v-model="form.viewDate" placeholder="Дата обращения" />
@@ -107,7 +116,7 @@ export default {
         label: "Статья из книги"
       }, {
         value: "articleMagazine",
-        label: "Сататья из журнала"
+        label: "Статья из журнала"
       }, {
         value: "web",
         label: "Cайты в сети"
