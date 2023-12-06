@@ -2,6 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomePage from '../components/pages/Home.vue'
 import { RouteNames } from './routes'
+import EditPage from "@/components/pages/EditPage.vue";
+import EditBookPage from "@/components/pages/EditBookPage.vue";
+import SettingsPage from "@/components/pages/SettingsPage.vue";
+import AddBookPage from "@/components/pages/AddBookPage.vue";
 
 Vue.use(VueRouter)
 
@@ -12,9 +16,24 @@ const routes = [
     component: HomePage
   },
   {
+    path: '/add',
+    name: RouteNames.BOOK_ADD,
+    component: AddBookPage
+  },
+  {
     path: '/edit',
     name: RouteNames.EDIT,
-    component: HomePage
+    component: EditPage
+  },
+  {
+    path: '/edit/:id',
+    name: RouteNames.BOOK_EDIT,
+    component: EditBookPage
+  },
+  {
+    path: '/settings',
+    name: RouteNames.SETTINGS,
+    component: SettingsPage
   }
 ]
 

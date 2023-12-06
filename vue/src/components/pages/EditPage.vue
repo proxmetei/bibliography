@@ -21,22 +21,21 @@
 </template>
 
 <script>
+
 import {mapGetters} from "vuex";
-import { helpModal } from "@/mixins/modals";
 import ListContainer from "@/components/parts/biblio/List.vue";
 import {RouteNames} from "@/router/routes";
 import PageLayout from "@/components/parts/PageLayout.vue";
 
 export default {
-  name: 'HomePage',
-  mixins: [helpModal],
+  name: 'EditPage',
   components: {
     PageLayout,
     ListContainer
   },
   data () {
     return {
-      typeOfList: 'ol'
+      typeOfList: 'div'
     }
   },
   computed: {
@@ -51,14 +50,14 @@ export default {
     },
     options () {
       return [{
-        value: "ol",
-        label: "Нумерованный список"
-      }, {
         value: "ul",
         label: "Простой список"
       }, {
+        value: "ol",
+        label: "Нумерованный список"
+      }, {
         value: "div",
-        label: "Блочный список"
+        label: "По умолчанию"
       }]
     }
   }
