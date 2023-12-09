@@ -44,8 +44,9 @@ export default {
         return `${this.book.authors[0].name} ${this.book.authors[0].initials} ${this.book.title}`
           + `${this.book.authors[0].initials}${this.book.authors[0].name} // ${this.book.originName}. – ${this.book.year}`
           + `. – URL: ${this.book.url} (дата обращения: ${this.book.viewDate})`
+      } else {
+        return ``;
       }
-      return null
     }
   }
 }
