@@ -74,17 +74,27 @@
                   icon="el-icon-edit"
                   size="mini"
                   circle
+                  class="list-container__item__actions__button"
+                  @click="() => hideBook(book)"
+              />
+              <RouterLink :to="{ name: RouteNames.BOOK_EDIT, params: { id: book.id } } ">
+                <ElButton
+                    type="primary"
+                    icon="el-icon-edit"
+                    size="mini"
+                    circle
+                    class="list-container__item__actions__button"
                 />
-              </div>
-            </RouterLink>
-            <ElButton
-              type="danger"
-              icon="el-icon-delete"
-              size="mini"
-              circle
-              class="list-container__item__actions__button"
-              @click="() => deleteBook(book)"
-            />
+              </RouterLink>
+              <ElButton
+                  type="danger"
+                  icon="el-icon-delete"
+                  size="mini"
+                  circle
+                  class="list-container__item__actions__button"
+                  @click="() => deleteBook(book)"
+              />
+            </div>
           </div>
         </div>
         <template v-else>
@@ -154,7 +164,7 @@
 </template>
 
 <script>
-import {mapActions} from "vuex";
+import {mapActions, mapMutations} from "vuex";
 import {RouteNames} from "@/router/routes";
 
 export default {
@@ -187,10 +197,17 @@ export default {
     ...mapActions('books', [
       'removeBook'
     ]),
+    ...mapMutations('books', [
+      'editBook'
+    ]),
     deleteBook (book) {
       this.removeBook(book.id)
+    },
+    hideBook (book) {
+      book.configIsVisible = !book.configIsVisible
+      this.editBook(book)
     }
-  },
+  }
 }
 </script>
 
