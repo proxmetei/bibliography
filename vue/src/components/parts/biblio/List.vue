@@ -7,67 +7,8 @@
         :style="cssProps"
       >
         <div v-if="isEdit" class="list-container__item">
-          <template v-if="book.type == 'book'">
-            <span>
-              {{ 
-                `${book.author} ${book.initials} ${book.title} : `
-                + `${book.typeBook} / ${book.initials} ${book.author}. – `
-                + `${book.editionNum ? `${book.editionNum} -е изд. – ` : ``}${book.city}`
-                + `${book.publisher ? ` : ${book.publisher}` : ``}`
-                + `, ${book.year}. – ${book.pagesNum}`
-                + ` с.${book.isbn ? ` – ISBN ${book.isbn}` : ``}`
-              }}
-            </span>
-          </template>
-          <template v-else-if="book.type == 'abstract'">
-            <span>
-              {{ 
-                `${book.author} ${book.initials} ${book.title} : дис. ... `
-                + `${book.authorTitle} : ${book.scientificSpecialty} / ${book.author}`
-                + `  ${book.fullInitials}${book.supervisor ? ` ; науч. рук. ${book.supervisor}` : ``}`
-                + ` ; ${book.university}. – ${book.city}, ${book.year}`
-                + `. – ${book.pagesNum} с.`
-              }}
-            </span>
-          </template>
-          <template v-else-if="book.type == 'articleBook'">
-            <span>
-              {{ 
-                `${book.author} ${book.initials} ${book.title}`
-                + ` / ${book.initials} ${book.author} // `
-                + `${book.originName}. – ${book.city}, `
-                + `${book.year}. – С. ${book.pages}`
-              }}
-            </span>
-          </template>
-          <template v-else-if="book.type == 'articleMagazine'">
-            <span>
-              {{ 
-                `${book.author} ${book.initials} ${book.title}`
-                + ` / ${book.initials} ${book.author} // `
-                + `${book.originName}. – ${book.year}. – №`
-                + `${book.magazineNum}. – С. ${book.pages}`
-              }}
-            </span>
-          </template>
-          <template v-else-if="book.type == 'web'">
-            <span>
-              {{ 
-                `${book.title}. – URL: ${book.url} (дата обращения: ${book.viewDate})`
-              }}
-            </span>
-          </template>
-          <template v-else-if="book.type == 'articleWeb'">
-            <span>
-              {{  
-                `${book.author} ${book.initials} ${book.title}`
-                + `${book.initials}${book.author} // ${book.originName}. – ${book.year}`
-                + `. – URL: ${book.url} (дата обращения: ${book.viewDate})`
-              }}
-            </span>
-          </template>
+          <ListItem :book = "book" />
           <div class="list-container__item__actions">
-            <RouterLink :to="{ name: RouteNames.BOOK_EDIT, params: { id: book.id } } ">
               <div class="list-container__item__actions__button">
                 <ElButton
                   type="primary"
@@ -98,65 +39,7 @@
           </div>
         </div>
         <template v-else>
-          <template v-if="book.type == 'book'">
-            <span>
-              {{ 
-                `${book.author} ${book.initials} ${book.title} : `
-                + `${book.typeBook} / ${book.initials} ${book.author}. – `
-                + `${book.editionNum ? `${book.editionNum} -е изд. – ` : ``}${book.city}`
-                + `${book.publisher ? ` : ${book.publisher}` : ``}`
-                + `, ${book.year}. – ${book.pagesNum}`
-                + ` с.${book.isbn ? ` – ISBN ${book.isbn}` : ``}`
-              }}
-            </span>
-          </template>
-          <template v-else-if="book.type == 'abstract'">
-            <span>
-              {{ 
-                `${book.author} ${book.initials} ${book.title} : дис. ... `
-                + `${book.authorTitle} : ${book.scientificSpecialty} / ${book.author}`
-                + `  ${book.fullInitials}${book.supervisor ? ` ; науч. рук. ${book.supervisor}` : ``}`
-                + ` ; ${book.university}. – ${book.city}, ${book.year}`
-                + `. – ${book.pagesNum} с.`
-              }}
-            </span>
-          </template>
-          <template v-else-if="book.type == 'articleBook'">
-            <span>
-              {{ 
-                `${book.author} ${book.initials} ${book.title}`
-                + ` / ${book.initials} ${book.author} // `
-                + `${book.originName}. – ${book.city}, `
-                + `${book.year}. – С. ${book.pages}`
-              }}
-            </span>
-          </template>
-          <template v-else-if="book.type == 'articleMagazine'">
-            <span>
-              {{ 
-                `${book.author} ${book.initials} ${book.title}`
-                + ` / ${book.initials} ${book.author} // `
-                + `${book.originName}. – ${book.year}. – №`
-                + `${book.magazineNum}. – С. ${book.pages}`
-              }}
-            </span>
-          </template>
-          <template v-else-if="book.type == 'web'">
-            <span>
-              {{ 
-                `${book.title}. – URL: ${book.url} (дата обращения: ${book.viewDate})`
-              }}
-            </span>
-          </template>
-          <template v-else-if="book.type == 'articleWeb'">
-            <span>
-              {{  
-                `${book.author} ${book.initials} ${book.title}`
-                + `${book.initials}${book.author} // ${book.originName}. – ${book.year}`
-                + `. – URL: ${book.url} (дата обращения: ${book.viewDate})`
-              }}
-            </span>
-          </template>
+          <ListItem :book = "book" />
         </template>
       </li>
     </component>
@@ -166,9 +49,13 @@
 <script>
 import {mapActions, mapMutations} from "vuex";
 import {RouteNames} from "@/router/routes";
+import ListItem from "./ListItem.vue";
 
 export default {
   name: "ListContainer",
+  components: {
+    ListItem
+  },
   props: {
     books: {
       type: Array,
