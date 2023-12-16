@@ -97,36 +97,54 @@ export default {
     isArticleWeb() {
       return this.type == 'articleWeb'
     },
+    strBook() {
+      return `${this.authorBeforeTitle} ${this.title} : `
+        + `${this.typeBook} / ${this.authorsAfterTitle} – `
+        + `${this.editionNum}${this.city}`
+        + `${this.publisher}`
+        + `, ${this.year}. – ${this.pagesNum}`
+        + ` ${this.isbn}`;
+    },
+    strAbstract() {
+      return `${this.authorBeforeTitle} ${this.title} : дис. ... `
+        + `${this.authorTitle} : ${this.scientificSpecialty} / `
+        + `  ${this.authorFullInitials}${this.supervisor}`
+        + ` ; ${this.university}. – ${this.city}, ${this.year}`
+        + `. – ${this.pagesNum}`
+    },
+    strArticleBook() {
+      return `${this.authorBeforeTitle} ${this.title}`
+        + ` / ${this.authorsAfterTitle} // `
+        + `${this.originName}. – ${this.city}, `
+        + `${this.year}. – ${this.pages}`
+    },
+    strArticleMagazine() {
+      return `${this.authorBeforeTitle} ${this.title}`
+        + ` / ${this.authorsAfterTitle} // `
+        + `${this.originName}. – ${this.year}. – `
+        + `${this.magazineNum}. – ${this.pages}`
+    },
+    strWeb() {
+      return `${this.title}. – ${this.url} ${this.viewDate}`
+    },
+    strArticleWeb() {
+      return `${this.authorBeforeTitle} ${this.title}`
+        + `${this.authorsAfterTitle} // ${this.originName}. – ${this.year}`
+        + `. – ${this.url} ${this.viewDate}`
+    },
     itemString() {
       if (this.isBook){
-        return `${this.authorBeforeTitle} ${this.title} : `
-          + `${this.typeBook} / ${this.authorsAfterTitle} – `
-          + `${this.editionNum}${this.city}`
-          + `${this.publisher}`
-          + `, ${this.year}. – ${this.pagesNum}`
-          + ` ${this.isbn}`;
+        return this.strBook
       } else if (this.isAbstract) {
-        return `${this.authorBeforeTitle} ${this.title} : дис. ... `
-          + `${this.authorTitle} : ${this.scientificSpecialty} / `
-          + `  ${this.authorFullInitials}${this.supervisor}`
-          + ` ; ${this.university}. – ${this.city}, ${this.year}`
-          + `. – ${this.pagesNum}`
+        return this.strAbstract
       } else if (this.isArticleBook) {
-        return `${this.authorBeforeTitle} ${this.title}`
-          + ` / ${this.authorsAfterTitle} // `
-          + `${this.originName}. – ${this.city}, `
-          + `${this.year}. – ${this.pages}`
+        return this.strArticleBook
       } else if (this.isArticleMagazine) {
-        return `${this.authorBeforeTitle} ${this.title}`
-          + ` / ${this.authorsAfterTitle} // `
-          + `${this.originName}. – ${this.year}. – `
-          + `${this.magazineNum}. – ${this.pages}`
+        return this.strArticleMagazine
       } else if (this.isWeb) {
-        return `${this.title}. – ${this.url} ${this.viewDate}`;
+        return this.strWeb
       } else if(this.isArticleWeb) {
-        return `${this.authorBeforeTitle} ${this.title}`
-          + `${this.authorsAfterTitle} // ${this.originName}. – ${this.year}`
-          + `. – ${this.url} ${this.viewDate}`
+        return this.strArticleWeb
       } else {
         return ``;
       }
