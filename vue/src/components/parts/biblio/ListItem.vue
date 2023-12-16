@@ -10,7 +10,7 @@ export default {
   props: {
     book: {
       type: Object,
-      default: null
+      default: () => ({})
     }
   },
   computed: {
