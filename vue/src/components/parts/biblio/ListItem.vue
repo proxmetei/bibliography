@@ -1,6 +1,6 @@
 <template>
   <span>
-    {{itemString}}
+    {{ itemString }}
   </span>
 </template>
 <script>
@@ -76,33 +76,54 @@ export default {
     university() {
       return `${this.book.university}`
     },
+    type() {
+      return this.book.type
+    },
+    isBook() {
+      return this.type == 'book'
+    },
+    isAbstract() {
+      return this.type == 'abstract'
+    },
+    isArticleBook() {
+      return this.type == 'articleBook'
+    },
+    isArticleMagazine() {
+      return this.type == 'articleMagazine'
+    },
+    isWeb() {
+      return this.type == 'web'
+    },
+    isArticleWeb() {
+      return this.type == 'articleWeb'
+    },
     itemString() {
-      if (this.book.type == 'book'){
+      if (this.isBook){
         return `${this.authorBeforeTitle} ${this.title} : `
           + `${this.typeBook} / ${this.authorsAfterTitle} – `
           + `${this.editionNum}${this.city}`
           + `${this.publisher}`
           + `, ${this.year}. – ${this.pagesNum}`
           + ` ${this.isbn}`;
-      } else if (this.book.type == 'abstract') {
+      } else if (this.isAbstract) {
         return `${this.authorBeforeTitle} ${this.title} : дис. ... `
           + `${this.authorTitle} : ${this.scientificSpecialty} / `
           + `  ${this.authorFullInitials}${this.supervisor}`
           + ` ; ${this.university}. – ${this.city}, ${this.year}`
           + `. – ${this.pagesNum}`
-      } else if (this.book.type == 'articleBook') {
+      } else if (this.isArticleBook) {
         return `${this.authorBeforeTitle} ${this.title}`
           + ` / ${this.authorsAfterTitle} // `
           + `${this.originName}. – ${this.city}, `
           + `${this.year}. – ${this.pages}`
-      } else if (this.book.type == 'articleMagazine') {
+      } else if (this.isArticleMagazine) {
         return `${this.authorBeforeTitle} ${this.title}`
           + ` / ${this.authorsAfterTitle} // `
           + `${this.originName}. – ${this.year}. – `
           + `${this.magazineNum}. – ${this.pages}`
-      } else if (this.book.type == 'web') {
+      } else if (this.isWeb) {
         return `${this.title}. – ${this.url} ${this.viewDate}`;
-      } else if(this.book.type == 'articleWeb') {
+      } else if(this.isArticleWeb) {
         return `${this.authorBeforeTitle} ${this.title}`
           + `${this.authorsAfterTitle} // ${this.originName}. – ${this.year}`
           + `. – ${this.url} ${this.viewDate}`
@@ -113,4 +134,5 @@ export default {
   }
 }
 </script>
+
 <style></style>
