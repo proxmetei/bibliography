@@ -14,90 +14,104 @@ export default {
     }
   },
   computed: {
-    pagesNum() {
+    pagesNum () {
       return `${this.book.pagesNum} с.`
     },
-    pages() {
+    pages () {
       return `С. ${this.book.pages}`
     },
-    editionNum() {
-      return `${this.book.editionNum ? `${this.book.editionNum} -е изд. – ` : ``}`
+    editionNum () {
+      if(this.book.editionNum) {
+        return `${this.book.editionNum} -е изд. – `
+      } else {
+        return ''
+      }
     },
-    supervisor() {
-      return `${this.book.supervisor ? ` ; науч. рук. ${this.book.supervisor}` : ``}`
+    supervisor () {
+      if(this.book.supervisor) {
+        return ` ; науч. рук. ${this.book.supervisor}`
+      } else {
+        return ''
+      }
     },
-    magazineNum() {
+    magazineNum () {
       return `№${this.book.magazineNum}`
     },
-    viewDate() {
+    viewDate () {
       return `(дата обращения: ${this.book.viewDate})`
     },
-    publisher() {
-      return `${this.book.publisher ? ` : ${this.book.publisher}` : ``}`
+    publisher () {
+      if(this.book.publisher) {
+        return ` : ${this.book.publisher}`
+      } else {
+        return ''
+      }
     },
-    url() {
+    url () {
       return `URL: ${this.book.url}`
     },
-    authorBeforeTitle() {
+    authorBeforeTitle () {
       return `${this.book.authors[0].name} ${this.book.authors[0].initials}`
     },
-    authorsAfterTitle() {
-      return `${this.book.authors.reduce((acc, curr, index) => {
-        return acc + `${curr.initials} ${curr.name}${index == this.book.authors.length - 1 ? '.' : ', '}`;
-      }, '')}`
+    authorsAfterTitle () {
+      return `${this.book.authors.map(x => `${x.initials} ${x.name}`).join(', ')}.`
     },
-    authorFullInitials() {
+    authorFullInitials () {
       return `${this.book.authors[0].name} ${this.book.fullInitials}`
     },
-    isbn() {
-      return `${this.book.isbn ? ` – ISBN ${this.book.isbn}` : ``}`
+    isbn () {
+      if(this.book.isbn) {
+        return ` – ISBN ${this.book.isbn}`
+      } else {
+        return ''
+      }
     },
-    year() {
-      return `${this.book.year}`
+    year () {
+      return this.book.year
     },
-    city() {
-      return `${this.book.city}`
+    city () {
+      return this.book.city
     },
-    title() {
-      return `${this.book.title}`
+    title () {
+      return this.book.title
     },
-    originName() {
-      return `${this.book.originName}`
+    originName () {
+      return this.book.originName
     },
-    typeBook() {
-      return `${this.book.typeBook}`
+    typeBook () {
+      return this.book.typeBook
     },
-    authorTitle() {
-      return `${this.book.authorTitle}`
+    authorTitle () {
+      return this.book.authorTitle
     },
-    scientificSpecialty() {
-      return `${this.book.scientificSpecialty}`
+    scientificSpecialty () {
+      return this.book.scientificSpecialty
     },
-    university() {
-      return `${this.book.university}`
+    university () {
+      return this.book.university
     },
-    type() {
+    type () {
       return this.book.type
     },
-    isBook() {
+    isBook () {
       return this.type == 'book'
     },
-    isAbstract() {
+    isAbstract () {
       return this.type == 'abstract'
     },
-    isArticleBook() {
+    isArticleBook () {
       return this.type == 'articleBook'
     },
-    isArticleMagazine() {
+    isArticleMagazine () {
       return this.type == 'articleMagazine'
     },
-    isWeb() {
+    isWeb () {
       return this.type == 'web'
     },
-    isArticleWeb() {
+    isArticleWeb () {
       return this.type == 'articleWeb'
     },
-    strBook() {
+    strBook () {
       return `${this.authorBeforeTitle} ${this.title} : `
         + `${this.typeBook} / ${this.authorsAfterTitle} – `
         + `${this.editionNum}${this.city}`
@@ -105,34 +119,34 @@ export default {
         + `, ${this.year}. – ${this.pagesNum}`
         + ` ${this.isbn}`;
     },
-    strAbstract() {
+    strAbstract () {
       return `${this.authorBeforeTitle} ${this.title} : дис. ... `
         + `${this.authorTitle} : ${this.scientificSpecialty} / `
         + `  ${this.authorFullInitials}${this.supervisor}`
         + ` ; ${this.university}. – ${this.city}, ${this.year}`
         + `. – ${this.pagesNum}`
     },
-    strArticleBook() {
+    strArticleBook () {
       return `${this.authorBeforeTitle} ${this.title}`
         + ` / ${this.authorsAfterTitle} // `
         + `${this.originName}. – ${this.city}, `
         + `${this.year}. – ${this.pages}`
     },
-    strArticleMagazine() {
+    strArticleMagazine () {
       return `${this.authorBeforeTitle} ${this.title}`
         + ` / ${this.authorsAfterTitle} // `
         + `${this.originName}. – ${this.year}. – `
         + `${this.magazineNum}. – ${this.pages}`
     },
-    strWeb() {
+    strWeb () {
       return `${this.title}. – ${this.url} ${this.viewDate}`
     },
-    strArticleWeb() {
+    strArticleWeb () {
       return `${this.authorBeforeTitle} ${this.title}`
         + `${this.authorsAfterTitle} // ${this.originName}. – ${this.year}`
         + `. – ${this.url} ${this.viewDate}`
     },
-    itemString() {
+    itemString () {
       if (this.isBook){
         return this.strBook
       } else if (this.isAbstract) {
