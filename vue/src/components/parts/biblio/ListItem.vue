@@ -129,7 +129,7 @@ export default {
     strArticleBook () {
       return `${this.authorBeforeTitle} ${this.title}`
         + ` / ${this.authorsAfterTitle} // `
-        + `${this.originName}. – ${this.city}, `
+        + `${this.originName}. – ${this.city}${this.publisher}, `
         + `${this.year}. – ${this.pages}`
     },
     strArticleMagazine () {

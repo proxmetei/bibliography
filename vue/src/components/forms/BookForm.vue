@@ -38,7 +38,7 @@
           class="book-form__input__text"
       />
     </div>
-    <div v-if="form.type === 'book'" class="book-form__input">
+    <div v-if="form.type === 'book' || form.type === 'articleBook'" class="book-form__input">
       <span class="book-form__input__label">Издательство</span>
       <ElInput
           v-model="form.publisher"

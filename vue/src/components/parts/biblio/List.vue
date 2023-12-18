@@ -8,39 +8,37 @@
             :style="cssProps"
         >
           <div v-if="isEdit" class="list-container__item">
-            <ListItem :book = "book" />
+            <ListItem :book="book" />
             <div class="list-container__item__actions">
-                <div class="list-container__item__actions__button">
-                  <ElButton
+              <ElButton
+                  :type="book.configIsVisible ? 'primary': 'danger'"
+                  icon="el-icon-view"
+                  size="mini"
+                  circle
+                  class="list-container__item__actions__button"
+                  @click="() => hideBook(book)"
+              />
+              <RouterLink :to="{ name: RouteNames.BOOK_EDIT, params: { id: book.id } } ">
+                <ElButton
                     type="primary"
                     icon="el-icon-edit"
                     size="mini"
                     circle
                     class="list-container__item__actions__button"
-                    @click="() => hideBook(book)"
                 />
-                <RouterLink :to="{ name: RouteNames.BOOK_EDIT, params: { id: book.id } } ">
-                  <ElButton
-                      type="primary"
-                      icon="el-icon-edit"
-                      size="mini"
-                      circle
-                      class="list-container__item__actions__button"
-                  />
-                </RouterLink>
-                <ElButton
-                    type="danger"
-                    icon="el-icon-delete"
-                    size="mini"
-                    circle
-                    class="list-container__item__actions__button"
-                    @click="() => deleteBook(book)"
-                />
-              </div>
+              </RouterLink>
+              <ElButton
+                  type="danger"
+                  icon="el-icon-delete"
+                  size="mini"
+                  circle
+                  class="list-container__item__actions__button"
+                  @click="() => deleteBook(book)"
+              />
             </div>
           </div>
           <template v-else>
-            <ListItem :book = "book" />
+            <ListItem :book="book" />
           </template>
         </li>
       </template>
