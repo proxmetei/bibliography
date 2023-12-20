@@ -1,24 +1,32 @@
 <template>
   <div>
-    <span class="book-form__input__label">Автор</span>
+    <span class="book-form__input__label">Фамимлия автора</span>
+    <ElInput
+        :value="author.surname"
+        placeholder="Укажите фамилию автора"
+        class="book-form__input__text"
+        @input="(v) => updateSurname(v)"
+    />
+    <span class="book-form__input__label">Имя автора</span>
     <ElInput
         :value="author.name"
-        placeholder="Укажите фамилию автора"
+        placeholder="Укажите имя автора"
         class="book-form__input__text"
         @input="(v) => updateName(v)"
     />
-    <span class="book-form__input__label">Инициалы автора</span>
+    <span class="book-form__input__label">Отчество автора</span>
     <ElInput
-        :value="author.initials"
-        placeholder="Укажите инициалы автора"
+        :value="author.patronymic"
+        placeholder="Укажите фамимлию автора"
         class="book-form__input__text"
-        @input="(v) => updateInitials(v)"
+        @input="(v) => updatePatronymic(v)"
     />
   </div>
 </template>
 
 <script>
 export default {
+  name: 'AuthorForm',
   model: {
     prop: 'author',
     event: 'change'
@@ -29,23 +37,30 @@ export default {
       required: true,
       default: () => {
         return {
+          surname: "",
           name: "",
-          initials: ""
+          patronymic: ""
         }
       }
     }
   },
   methods: {
-    updateName (v) {
+    updateSurname (v) {
       this.$emit('change', {
-        name: v,
-        initials: this.author.initials
+        ...this.author,
+        surname: v
       })
     },
-    updateInitials (v) {
+    updateName (v) {
       this.$emit('change', {
-        name: this.author.name,
-        initials: v
+        ...this.author,
+        name: v
+      })
+    },
+    updatePatronymic (v) {
+      this.$emit('change', {
+        ...this.author,
+        patronymic: v
       })
     }
   }
