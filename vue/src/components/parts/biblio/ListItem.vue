@@ -51,13 +51,13 @@ export default {
       return `URL: ${this.book.url}`
     },
     authorBeforeTitle () {
-      return `${this.book.authors[0].name} ${this.book.authors[0].initials}`
+      return `${this.book.authors[0].surname} ${this.book.authors[0].name[0]}.${this.book.authors[0].patronymic[0]}.`
     },
     authorsAfterTitle () {
-      return `${this.book.authors.map(x => `${x.initials} ${x.name}`).join(', ')}.`
+      return `${this.book.authors.map(x => `${x.name[0]}.${x.patronymic[0]}. ${x.surname}`).join(', ')}.`
     },
     authorFullInitials () {
-      return `${this.book.authors[0].name} ${this.book.fullInitials}`
+      return `${this.book.authors[0].surname} ${this.book.authors[0].name} ${this.book.authors[0].patronymic}`
     },
     isbn () {
       if(this.book.isbn) {

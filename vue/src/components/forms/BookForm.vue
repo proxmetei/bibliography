@@ -12,6 +12,14 @@
     </div>
     <div v-if="form.type !== 'web' && form.type !== ''" class="book-form__input">
       <div v-for="(item, index) in form.authors" :key="index" >
+        <ElSelect v-model="form.authors[index]" value-key="id" placeholder="Выберите автора из выпадающего списка">
+        <ElOption
+          v-for="author in authors" 
+          :key="author.id" 
+          :label="`${author.surname} ${author.name} ${author.patronymic}`" 
+          :value="author" 
+        />
+      </ElSelect>
         <AuthorForm v-model="form.authors[index]" :index="index" />
       </div>
       <ElButton
@@ -222,6 +230,12 @@ export default {
     ...mapGetters('books', [
       'getBook',
     ]),
+    ...mapGetters('authors', [
+      'getAuthors',
+    ]),
+    authors () {
+      return this.getAuthors
+    },
     typeOptions () {
       return [{
         value: "book",
