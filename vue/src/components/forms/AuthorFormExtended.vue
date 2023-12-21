@@ -10,7 +10,7 @@
     </ElButton>
   </div>
 </template>
-  
+
 <script>
 import {mapGetters, mapMutations} from "vuex";
 import AuthorForm from "@/components/forms/AuthorForm.vue";

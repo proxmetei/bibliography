@@ -8,7 +8,7 @@
     </section>
   </PageLayout>
 </template>
-  
+
 <script>
 import { mapGetters } from "vuex";
 import ListContainerAuthors from "@/components/parts/biblio/authors/ListAuthors.vue";

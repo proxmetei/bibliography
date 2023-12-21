@@ -44,7 +44,7 @@
     </div>
   </div>
 </template>
-  
+
 <script>
 import { mapActions, mapMutations } from "vuex";
 import { RouteNames } from "@/router/routes";
@@ -79,7 +79,7 @@ export default {
   },
 };
 </script>
-  
+
 <style scoped lang="less">
 .list-container {
   &__wrapper {
