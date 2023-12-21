@@ -5,7 +5,6 @@
         <div
           v-if="author.configIsVisible || isEdit"
           :key="author.id"
-          :style="cssProps"
         >
           <div v-if="isEdit" class="list-container__item">
             {{ author.surname }} {{ author.name }} {{ author.patronymic }}
@@ -18,12 +17,7 @@
                 class="list-container__item__actions__button"
                 @click="() => hideAuthor(author)"
               />
-              <RouterLink
-                :to="{
-                  name: RouteNames.AUTHOR_EDIT,
-                  params: { id: author.id },
-                }"
-              >
+              <RouterLink :to="{ name: RouteNames.AUTHOR_EDIT, params: { id: author.id } }">
                 <ElButton
                   type="primary"
                   icon="el-icon-edit"
@@ -70,14 +64,7 @@ export default {
   computed: {
     RouteNames() {
       return RouteNames;
-    },
-    cssProps() {
-      return this.typeList == "div"
-        ? {
-            display: "block",
-          }
-        : {};
-    },
+    }
   },
   methods: {
     ...mapActions("authors", ["removeAuthor"]),
@@ -93,7 +80,7 @@ export default {
 };
 </script>
   
-  <style scoped lang="less">
+<style scoped lang="less">
 .list-container {
   &__wrapper {
     padding: 10px;
@@ -116,4 +103,3 @@ export default {
   }
 }
 </style>
-  
