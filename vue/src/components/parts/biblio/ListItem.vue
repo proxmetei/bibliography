@@ -51,10 +51,10 @@ export default {
       return `URL: ${this.book.url}`
     },
     authorBeforeTitle () {
-      return `${this.book.authors[0].surname} ${this.book.authors[0].name[0]}.${this.book.authors[0].patronymic[0]}.`
+      return `${this.authorSurnameInitials(this.book.authors[0], false)}`
     },
     authorsAfterTitle () {
-      return `${this.book.authors.map(x => `${x.name[0]}.${x.patronymic[0]}. ${x.surname}`).join(', ')}.`
+      return `${this.book.authors.map(x => `${this.authorSurnameInitials(x)}`).join(', ')}.`
     },
     authorFullInitials () {
       return `${this.book.authors[0].surname} ${this.book.authors[0].name} ${this.book.authors[0].patronymic}`
@@ -161,6 +161,15 @@ export default {
         return this.strArticleWeb
       } else {
         return ``;
+      }
+    }
+  },
+  methods: {
+    authorSurnameInitials (author, initialsFirst=true) {
+      if(initialsFirst){
+        return `${author.name[0]}.${author.patronymic[0]}. ${author.surname}`
+      } else {
+        return `${author.surname} ${author.name[0]}.${author.patronymic[0]}.`
       }
     }
   }

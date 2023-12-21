@@ -5,21 +5,21 @@
         :value="author.surname"
         placeholder="Укажите фамилию автора"
         class="book-form__input__text"
-        @input="(v) => updateSurname(v)"
+        @input="(v) => update({ surname: v })"
     />
     <span class="book-form__input__label">Имя автора</span>
     <ElInput
         :value="author.name"
         placeholder="Укажите имя автора"
         class="book-form__input__text"
-        @input="(v) => updateName(v)"
+        @input="(v) => update({ name: v })"
     />
     <span class="book-form__input__label">Отчество автора</span>
     <ElInput
         :value="author.patronymic"
         placeholder="Укажите фамимлию автора"
         class="book-form__input__text"
-        @input="(v) => updatePatronymic(v)"
+        @input="(v) => update({ patronymic: v })"
     />
   </div>
 </template>
@@ -45,22 +45,10 @@ export default {
     }
   },
   methods: {
-    updateSurname (v) {
+    update (v) {
       this.$emit('change', {
         ...this.author,
-        surname: v
-      })
-    },
-    updateName (v) {
-      this.$emit('change', {
-        ...this.author,
-        name: v
-      })
-    },
-    updatePatronymic (v) {
-      this.$emit('change', {
-        ...this.author,
-        patronymic: v
+        ...v
       })
     }
   }

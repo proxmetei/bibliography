@@ -1,19 +1,8 @@
 <template>
     <PageLayout>
       <section>
-        <div>
-          <ElSelect v-model="typeOfList" placeholder="Выберите тип списка">
-            <ElOption
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
-          </ElSelect>
-        </div>
         <ListContainerAuthors
           :authors="authors"
-          :type-list="typeOfList"
           :is-edit="$route.name===RouteNames.AUTHORS_EDIT"
         />
       </section>
@@ -48,18 +37,6 @@
       },
       authors () {
         return this.getAuthors
-      },
-      options () {
-        return [{
-          value: "ol",
-          label: "Нумерованный список"
-        }, {
-          value: "ul",
-          label: "Простой список"
-        }, {
-          value: "div",
-          label: "Блочный список"
-        }]
       }
     }
   }
